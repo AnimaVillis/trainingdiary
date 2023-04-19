@@ -1,0 +1,16 @@
+{
+    "schemaVersion": 2,
+    "dockerfileLines": [
+        "FROM ghcr.io/premoweb/alpine-nginx-php8:latest",
+        "USER root",
+        "ADD webserver/config/nginx.conf /etc/nginx/nginx.conf",
+        "ADD webserver/config/fpm-pool.conf /etc/php81/php-fpm.d/www.conf",
+        "ADD webserver/config/php.ini /etc/php81/conf.d/custom.ini",
+        "RUN mkdir -p /var/www/html/dist/",
+        "ADD backend/ /var/www/html/",
+        "ADD frontend/dist/ /var/www/html/dist/",
+        "RUN chown -R nobody.nobody /var/www/html",
+        "ENV NODE_ENV production",
+        "USER nobody"
+    ]
+}

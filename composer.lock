@@ -1,0 +1,54 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "ad3847e5ba8e89fe02884190b1cd6527",
+    "packages": [
+        {
+            "name": "bcosca/fatfree-core",
+            "version": "3.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/f3-factory/fatfree-core.git",
+                "reference": "f6ea45472f55a1ecabd4ced74cb56f0efd6af34e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/f3-factory/fatfree-core/zipball/f6ea45472f55a1ecabd4ced74cb56f0efd6af34e",
+                "reference": "f6ea45472f55a1ecabd4ced74cb56f0efd6af34e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "."
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "description": "A powerful yet easy-to-use PHP micro-framework designed to help you build dynamic and robust Web applications - fast!",
+            "homepage": "http://fatfreeframework.com/",
+            "support": {
+                "issues": "https://github.com/f3-factory/fatfree-core/issues",
+                "source": "https://github.com/f3-factory/fatfree-core/tree/3.8.1"
+            },
+            "time": "2022-11-04T23:15:19+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}
