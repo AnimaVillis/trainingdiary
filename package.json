@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "training-diary",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -15,6 +15,9 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.1",
     "typescript": "^5.0.4",
     "vite": "^4.2.2",
     "vite-plugin-banner": "^0.3.0",
