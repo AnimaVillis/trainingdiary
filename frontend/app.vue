@@ -8,8 +8,6 @@
 
 <script>
 export default {
-  mounted() {
-    $(document).foundation();
-  },
+
 };
 </script>
