@@ -11,9 +11,6 @@ const router = createRouter({
       path: "/",
       component: () => import("./pages/front-page.vue") 
     },
-    { 
-      path: "/login", 
-      component: () => import("./pages/login.vue") },
 
     // Not found
     {
