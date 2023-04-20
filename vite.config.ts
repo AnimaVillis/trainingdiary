@@ -22,7 +22,7 @@ const defaultConfig = {
       "^/api/": {
         target: "http://localhost:81",
         ws: true,
-        changeOrigin: true
+        changeOrigin: true,
       },
     },
   },
@@ -31,7 +31,7 @@ const defaultConfig = {
 export default defineConfig(({ command }) => {
   if (command === "serve") {
     return {
-      ...defaultConfig
+      ...defaultConfig,
     };
   } else {
     return {
