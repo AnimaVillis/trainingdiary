@@ -22,5 +22,5 @@ $fw->route(["GET /", "GET /*"], function(\Base $fw) {
 });
 
 $fw->run();
-
-?>
+// test
+?> 
