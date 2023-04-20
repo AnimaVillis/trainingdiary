@@ -30,7 +30,7 @@ ENV NODE_ENV development
 
 USER nobody
 
-EXPOSE 80
+EXPOSE 3000
 
 # Deployed in Caprover
 FROM development AS production

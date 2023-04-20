@@ -29,3 +29,6 @@ node_modules
 
 dist/
 tmp/
+
+#config file
+**/dbh.classes.php
