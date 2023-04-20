@@ -7,7 +7,13 @@ const router = createRouter({
     return { top: 0 };
   },
   routes: [
-    { path: "/", component: () => import("./pages/front-page.vue") },
+    { 
+      path: "/",
+      component: () => import("./pages/front-page.vue") 
+    },
+    { 
+      path: "/login", 
+      component: () => import("./pages/login.vue") },
 
     // Not found
     {
