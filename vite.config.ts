@@ -20,10 +20,10 @@ const defaultConfig = {
     },
     cors: true,
     strictPort: true,
-    port: 3000,
+    port: 80,
     proxy: {
       "^/api/": {
-        target: "http://localhost:3000",
+        target: "http://localhost:81",
         ws: true,
         changeOrigin: true
       },
