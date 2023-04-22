@@ -31,7 +31,8 @@
                         email = :email, 
                         password = :password, 
                         user_level = :user_level, 
-                        first_login = :first_login";
+                        first_login = :first_login,
+                        account_activation = :account_activation";
         
             $stmt = $this->conn->prepare($sqlQuery);
         
@@ -41,6 +42,7 @@
             $this->password=password_hash(htmlspecialchars(strip_tags($this->password)), PASSWORD_DEFAULT);
             $this->user_level=0;
             $this->first_login=0;
+            $this->account_activation=0;
         
 
             $stmt->bindParam(":name", $this->name);
@@ -48,6 +50,7 @@
             $stmt->bindParam(":password", $this->password);
             $stmt->bindParam(":user_level", $this->user_level);
             $stmt->bindParam(":first_login", $this->first_login);
+            $stmt->bindParam(":account_activation", $this->account_activation);
         
             if($stmt->execute()){
                return true;
@@ -68,35 +71,6 @@
             $this->user_level = $dataRow['user_level'];
             $this->first_login = $dataRow['first_login'];
         }        
-
-        public function updateMentee(){
-            $sqlQuery = "UPDATE
-                        ". $this->db_table ."
-                    SET
-                        email = :email, 
-                        user_level = :user_level, 
-                        first_login = :first_login, 
-                    WHERE 
-                        id = :id";
-        
-            $stmt = $this->conn->prepare($sqlQuery);
-        
-            $this->email=htmlspecialchars(strip_tags($this->email));
-            $this->user_level=htmlspecialchars(strip_tags($this->user_level));
-            $this->first_login=htmlspecialchars(strip_tags($this->first_login));
-            $this->id=htmlspecialchars(strip_tags($this->id));
-        
-
-            $stmt->bindParam(":email", $this->email);
-            $stmt->bindParam(":user_level", $this->user_level);
-            $stmt->bindParam(":first_login", $this->first_login);
-            $stmt->bindParam(":id", $this->id);
-        
-            if($stmt->execute()){
-               return true;
-            }
-            return false;
-        }
 
         public function recoveryMentee(){
             $sqlQuery = "SELECT name, email FROM ". $this->db_table ." WHERE name = :name AND email = :email LIMIT 1";

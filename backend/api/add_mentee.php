@@ -4,7 +4,7 @@
     header("Access-Control-Allow-Methods: POST");
     header("Access-Control-Max-Age: 3600");
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-
+    //ini_set('display_errors', 1);
     include_once '../config/database.php';
     include_once '../class/mentee.php';
     $database = new Database();
@@ -17,6 +17,7 @@
         $item->password = $data->password;
         $item->user_level = $data->user_level;
         $item->first_login = $data->first_login;
+        $item->account_activation = $data->account_activation;
         if($item->createMentee()){
             http_response_code(200);
             echo json_encode(
