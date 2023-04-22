@@ -4,7 +4,7 @@
             <h1 class="text-3xl font-bold tracking-widest">SIGN UP</h1>
             <span>Don't have an account yet? Sign up here!</span>
         </div>
-            <form action="../backend/includes/signup.inc.php" method="post" class="flex flex-col items-center justify-center space-y-6">
+            <form class="flex flex-col items-center justify-center space-y-6">
                 <input
                     v-model="form.username"
                     type="text" 
