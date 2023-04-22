@@ -2,8 +2,10 @@
   "name": "training-diary",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "development": "vite",
+    "dev": "concurrently --names \"APP,BUILD\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run development\" \"npm run build:watch\"",
     "build": "vue-tsc --noEmit && vite build",
+    "build:watch": "vue-tsc --noEmit && vite build -w",
     "preview": "vite preview",
     "lint": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore .",
     "lint:fix": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore . --fix"
@@ -20,6 +22,7 @@
     "@typescript-eslint/parser": "5.57.0",
     "@vitejs/plugin-vue": "^4.1.0",
     "autoprefixer": "^10.4.14",
+    "concurrently": "^8.0.1",
     "eslint": "8.37.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-prettier": "4.2.1",
