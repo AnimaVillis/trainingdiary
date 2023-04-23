@@ -70,8 +70,8 @@ else:
 
                     $jwt = new JwtHandler();
                     $token = $jwt->jwtEncodeData(
-                        'http://localhost/backend/',
-                        array("user_id"=> $row['id'])
+                        'http://localhost/',
+                        array("email"=> $row['email'])
                     );
                     
                     $returnData = [
