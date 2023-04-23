@@ -5,7 +5,6 @@ header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 ini_set('display_errors', 1);
-
 require __DIR__.'/config/database.php';
 require __DIR__.'/class/JwtHandler.php';
 
@@ -71,7 +70,7 @@ else:
                     $jwt = new JwtHandler();
                     $token = $jwt->jwtEncodeData(
                         'http://localhost/',
-                        array("email"=> $row['email'])
+                        array("user_id"=> $row['id'])
                     );
                     
                     $returnData = [
@@ -99,4 +98,3 @@ else:
 endif;
 
 echo json_encode($returnData);
-?>

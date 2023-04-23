@@ -43,16 +43,16 @@ class Auth extends JwtHandler
         }
     }
 
-    protected function fetchUser($email)
+    protected function fetchUser($user_id)
     {
         try {
-            $fetch_user_by_email = "SELECT * FROM `users` WHERE `email`=:email";
-            $stmt = $this->db->prepare($fetch_user_by_email);
-            $stmt->bindValue(':id', $email, PDO::PARAM_INT);
-            $stmt->execute();
+            $fetch_user_by_id = "SELECT * FROM `users` WHERE `id`=:id";
+            $query_stmt = $this->db->prepare($fetch_user_by_id);
+            $query_stmt->bindValue(':id', $user_id, PDO::PARAM_INT);
+            $query_stmt->execute();
 
-            if ($stmt->rowCount()) :
-                return $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($query_stmt->rowCount()) :
+                return $query_stmt->fetch(PDO::FETCH_ASSOC);
             else :
                 return false;
             endif;
@@ -61,4 +61,3 @@ class Auth extends JwtHandler
         }
     }
 }
-?>

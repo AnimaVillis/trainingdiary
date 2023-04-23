@@ -47,7 +47,8 @@ class JwtHandler
     public function jwtDecodeData($jwt_token)
     {
         try {
-            $decode = JWT::decode($jwt_token, $this->jwt_secrect, array('HS256'));
+            //$decode = JWT::decode($jwt_token, $this->jwt_secrect, array('HS256'));
+            $decode = JWT::decode($jwt_token, new Key($this->jwt_secrect, 'HS256'));
             return [
                 "data" => $decode->data
             ];
