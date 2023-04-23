@@ -58,6 +58,47 @@
             return false;
         }
 
+        public function firstloginMentee(){
+            $sqlQuery = "INSERT INTO
+                        users_info
+                    SET
+                        users_id = :users_id, 
+                        initial_weight = :initial_weight, 
+                        current_weight = :current_weight, 
+                        target_weight = :target_weight, 
+                        growth = :growth,
+                        age = :age,
+                        activity_factor = :activity_factor,
+                        sex = :sex";
+        
+            $stmt = $this->conn->prepare($sqlQuery);
+        
+
+            $this->users_id=$this->users_id;
+            $this->initial_weight=$this->initial_weight;
+            $this->current_weight=$this->current_weight;
+            $this->target_weight=$this->target_weight;
+            $this->growth=$this->growth;
+            $this->age=$this->age;
+            $this->activity_factor=$this->activity_factor;
+            $this->sex=$this->sex;
+        
+
+            $stmt->bindParam(":users_id", $this->users_id);
+            $stmt->bindParam(":initial_weight", $this->initial_weight);
+            $stmt->bindParam(":current_weight", $this->current_weight);
+            $stmt->bindParam(":target_weight", $this->target_weight);
+            $stmt->bindParam(":growth", $this->growth);
+            $stmt->bindParam(":age", $this->age);
+            $stmt->bindParam(":activity_factor", $this->activity_factor);
+            $stmt->bindParam(":sex", $this->sex);
+        
+            if($stmt->execute()){
+               return true;
+            }
+            return false;
+        }
+
         public function getSingleMentee(){
             $sqlQuery = "SELECT id, name, email, user_level, first_login FROM ". $this->db_table ." WHERE id = ? LIMIT 1";
             $stmt = $this->conn->prepare($sqlQuery);
