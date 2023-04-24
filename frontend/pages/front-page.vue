@@ -1,17 +1,17 @@
  <template>
-  <login-page />
+  <register-page />
   <menu-page />   
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
-import Login from './Login/Login.vue'
+import Register from './Register/Register.vue'
 import Menu from './Menu/Menu.vue'
 
 
 export default defineComponent({
     components: {
-        'login-page': Login,
+        'register-page': Register,
         'menu-page': Menu
     },
 
