@@ -15,6 +15,8 @@
             class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500"
         />
 
+        <span v-if="v$.username.$error"> {{ v$.username.$errors[0].$message }} </span>
+
         <password-score
           :value="form.password"
           class="w-80 p-2 px-4"
@@ -31,14 +33,18 @@
             class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
         />
 
+        <span v-if="v$.password.$error"> {{ v$.password.$errors[0].$message }} </span>
+
         <input 
             v-model="form.password_confirm"
-            type="password" 
+            type="password"
             id="confirm_password" 
             name="pwdrepeat" 
             placeholder="Confirm Password" 
             class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
         />
+
+         <span v-if="v$.password_confirm.$error"> {{ v$.password_confirm.$errors[0].$message }} </span>
 
         <input 
             v-model="form.email"
@@ -48,6 +54,8 @@
             placeholder="E-mail" 
             class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
         />
+
+        <span v-if="v$.email.$error"> {{ v$.email.$errors[0].$message }} </span>
 
         <button 
           type="submit" 
@@ -66,7 +74,7 @@
 <script lang="ts">
 import axios from 'axios';
 import { useVuelidate } from '@vuelidate/core'
-import { required, email } from '@vuelidate/validators'
+import { required, email, minLength, sameAs, helpers } from '@vuelidate/validators'
 import { defineComponent, reactive, ref, computed } from 'vue';
 import PasswordScore from './PasswordScore.vue';
 
@@ -98,8 +106,8 @@ export default defineComponent({
 
     const rules = {
       username: { required }, 
-      password: { required }, 
-      password_confirm: { required }, 
+      password: { required, minLength: minLength(6) }, 
+      password_confirm: { required, sameAsPassword: sameAs('password') }, 
       email: { required, email } 
     }
 
@@ -108,23 +116,13 @@ export default defineComponent({
     const password = ref("");
     const isPasswordStrong = ref(false);
 
-    const registerPayload = computed(() => {
-      const payload = {
-        username: '',
-        password: '',
-        email: '',
-        user_level: 0,
-        first_login: 0,
-        account_activation: 0
-      }
-    })
-
     async function submit() {
       await axios.post(`http://localhost:3001/register.php`, form)           
     }
 
     return {
       form,
+      v$,
       password,
       isPasswordStrong,
       submit
