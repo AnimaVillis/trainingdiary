@@ -9,18 +9,17 @@
     include_once '../class/mentee.php';
     $database = new Database();
     $db = $database->getConnection();
-    $item = new Mentee($db);
-    $item->id = isset($_GET['id']) ? $_GET['id'] : die();
+    $user = new Mentee($db);
+    $user->id = isset($_GET['id']) ? $_GET['id'] : die();
   
-    $item->getSingleMentee();
-    if($item->name != null){
-        // create array
+    $user->getSingleMentee();
+    if($user->name != null){
         $ment_arr = array(
-            "id" =>  $item->id,
-            "name" => $item->name,
-            "email" => $item->email,
-            "user_level" => $item->user_level,
-            "first_login" => $item->first_login
+            "id" =>  $user->id,
+            "name" => $user->name,
+            "email" => $user->email,
+            "user_level" => $user->user_level,
+            "first_login" => $user->first_login
         );
       
         http_response_code(200);

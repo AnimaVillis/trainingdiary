@@ -11,19 +11,19 @@
     $database = new Database();
     $db = $database->getConnection();
     
-    $item = new Mentee($db);
+    $user = new Mentee($db);
     
     $data = json_decode(file_get_contents("php://input"));
     
-    $item->id = $data->id;
+    $user->id = $data->id;
     
-    if($item->deleteMentee()){
+    if($user->deleteMentee()){
         http_response_code(200);
             echo json_encode(
                 array("message" => "Mentee deleted.")
             );
     } else{
-        http_response_code(200);
+        http_response_code(404);
             echo json_encode(
                 array("message" => "Mentee doesn't exsist.")
             );

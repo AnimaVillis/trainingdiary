@@ -9,25 +9,24 @@
     include_once '../class/mentee.php';
     $database = new Database();
     $db = $database->getConnection();
-    $item = new Mentee($db);
+    $user = new Mentee($db);
     $data = json_decode(file_get_contents("php://input"));
     if($data != null) {
-        $item->name = $data->name;
-        $item->email = $data->email;
-        if($item->recoveryMentee()){
-            //dodanie wysyłki maila
+        $user->name = $data->name;
+        $user->email = $data->email;
+        if($user->recoveryMentee()){
             http_response_code(200);
             echo json_encode(
                 array("message" => "Mentee recovery mail sended.")
             );
-        } else{
-            http_response_code(200);
+        } else {
+            http_response_code(404);
             echo json_encode(
                 array("message" => "Mentee cannot be recovered.")
             );
         }
     } else {
-        http_response_code(200);
+        http_response_code(404);
         echo json_encode(
             array("message" => "Fill all fields.")
         );

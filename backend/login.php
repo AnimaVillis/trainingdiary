@@ -4,7 +4,7 @@ header("Access-Control-Allow-Headers: access");
 header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-ini_set('display_errors', 1);
+
 require __DIR__.'/config/database.php';
 require __DIR__.'/class/JwtHandler.php';
 
@@ -19,37 +19,30 @@ function msg($success,$status,$message,$extra = []){
 $database = new Database();
 $db = $database->getConnection();
 
-$data = json_decode(file_get_contents("php://input"));
+$user = json_decode(file_get_contents("php://input"));
 $returnData = [];
 
-// IF REQUEST METHOD IS NOT EQUAL TO POST
 if($_SERVER["REQUEST_METHOD"] != "POST"):
     $returnData = msg(0,404,'Page Not Found!');
-
-// CHECKING EMPTY FIELDS
-elseif(!isset($data->email) 
-    || !isset($data->password)
-    || empty(trim($data->email))
-    || empty(trim($data->password))
+elseif(!isset($user->email) 
+    || !isset($user->password)
+    || empty(trim($user->email))
+    || empty(trim($user->password))
     ):
 
     $fields = ['fields' => ['email','password']];
     $returnData = msg(0,422,'Please Fill in all Required Fields!',$fields);
 
-// IF THERE ARE NO EMPTY FIELDS THEN-
 else:
-    $email = trim($data->email);
-    $password = trim($data->password);
+    $email = trim($user->email);
+    $password = trim($user->password);
 
-    // CHECKING THE EMAIL FORMAT (IF INVALID FORMAT)
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)):
-        $returnData = msg(0,422,'Invalid Email Address!');
-    
-    // IF PASSWORD IS LESS THAN 8 THE SHOW THE ERROR
+        $returnData = msg(0,404,'Invalid Email Address!');
+
     elseif(strlen($password) < 8):
         $returnData = msg(0,422,'Your password must be at least 8 characters long!');
 
-    // THE USER IS ABLE TO PERFORM THE LOGIN ACTION
     else:
         try{
             
@@ -58,13 +51,10 @@ else:
             $stmt->bindValue(':email', $email,PDO::PARAM_STR);
             $stmt->execute();
 
-            // IF THE USER IS FOUNDED BY EMAIL
             if($stmt->rowCount()):
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 $check_password = password_verify($password, $row['password']);
 
-                // VERIFYING THE PASSWORD (IS CORRECT OR NOT?)
-                // IF PASSWORD IS CORRECT THEN SEND THE LOGIN TOKEN
                 if($check_password):
 
                     $jwt = new JwtHandler();
@@ -79,14 +69,12 @@ else:
                         'token' => $token
                     ];
 
-                // IF INVALID PASSWORD
                 else:
-                    $returnData = msg(0,422,'Invalid Password!');
+                    $returnData = msg(0,400,'Invalid Password!');
                 endif;
 
-            // IF THE USER IS NOT FOUNDED BY EMAIL THEN SHOW THE FOLLOWING ERROR
             else:
-                $returnData = msg(0,422,'Invalid Email Address!');
+                $returnData = msg(0,400,'Invalid Email Address!');
             endif;
         }
         catch(PDOException $e){

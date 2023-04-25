@@ -7,16 +7,16 @@
     
     $database = new Database();
     $db = $database->getConnection();
-    $items = new Mentee($db);
-    $stmt = $items->getMentees();
-    $itemCount = $stmt->rowCount();
+    $users = new Mentee($db);
+    $stmt = $users->getMentees();
+    $userCount = $stmt->rowCount();
 
-    echo json_encode($itemCount);
-    if($itemCount > 0){
+    echo json_encode($userCount);
+    if($userCount > 0){
         
         $menteeArr = array();
         $menteeArr["mentees"] = array();
-        $menteeArr["itemCount"] = $itemCount;
+        $menteeArr["userCount"] = $userCount;
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
             $e = array(

@@ -100,7 +100,7 @@
         }
 
         public function getSingleMentee(){
-            $sqlQuery = "SELECT id, name, email, user_level, first_login FROM ". $this->db_table ." WHERE id = ? LIMIT 1";
+            $sqlQuery = "SELECT id, name, email, user_level, first_login FROM ". $this->db_table ." WHERE id = ?";
             $stmt = $this->conn->prepare($sqlQuery);
             $stmt->bindParam(1, $this->id);
             $stmt->execute();
@@ -114,7 +114,7 @@
         }        
 
         public function recoveryMentee(){
-            $sqlQuery = "SELECT name, email FROM ". $this->db_table ." WHERE name = :name AND email = :email LIMIT 1";
+            $sqlQuery = "SELECT name, email FROM ". $this->db_table ." WHERE name = :name AND email = :email";
             $stmt = $this->conn->prepare($sqlQuery);
             $stmt->bindParam(":name", $this->name);
             $stmt->bindParam(":email", $this->email);
@@ -128,9 +128,8 @@
             if($dataRow['name'] == $this->name AND $dataRow['email'] == $this->email) {
                 if($stmt->execute()){
                     return true;
-                } else {
-                    return false;
-                }
+                } 
+                return false;
             }
         }
 

@@ -4,35 +4,34 @@
     header("Access-Control-Allow-Methods: POST");
     header("Access-Control-Max-Age: 3600");
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-    //ini_set('display_errors', 1);
     include_once '../config/database.php';
     include_once '../class/mentee.php';
     $database = new Database();
     $db = $database->getConnection();
-    $item = new Mentee($db);
+    $user = new Mentee($db);
     $data = json_decode(file_get_contents("php://input"));
     if($data != null) {
-        $item->users_id = $data->users_id;
-        $item->initial_weight = $data->initial_weight;
-        $item->current_weight = $data->current_weight;
-        $item->target_weight = $data->target_weight;
-        $item->growth = $data->growth;
-        $item->age = $data->age;
-        $item->activity_factor = $data->activity_factor;
-        $item->sex = $data->sex;
-        if($item->firstloginMentee()){
+        $user->users_id = $data->users_id;
+        $user->initial_weight = $data->initial_weight;
+        $user->current_weight = $data->current_weight;
+        $user->target_weight = $data->target_weight;
+        $user->growth = $data->growth;
+        $user->age = $data->age;
+        $user->activity_factor = $data->activity_factor;
+        $user->sex = $data->sex;
+        if($user->firstloginMentee()){
             http_response_code(200);
             echo json_encode(
                 array("message" => "Mentee first login data updated.")
             );
         } else{
-            http_response_code(200);
+            http_response_code(404);
             echo json_encode(
                 array("message" => "Mentee first login not send.")
             );
         }
     } else {
-        http_response_code(200);
+        http_response_code(404);
         echo json_encode(
             array("message" => "Fill all fields.")
         );
