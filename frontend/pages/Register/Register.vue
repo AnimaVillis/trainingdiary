@@ -46,36 +46,62 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
+import axios from 'axios';
+import { useVuelidate } from '@vuelidate/core'
+import { required, email, minLength, sameAs, helpers } from '@vuelidate/validators'
+import { defineComponent, reactive, ref, computed } from 'vue';
+import PasswordScore from './PasswordScore.vue';
 
 interface Form {
-    username: string,
-    password: string,
-    password_confirm: string,
-    email: string
+  username: string;
+  password: string;
+  password_confirm: string;
+  email: string;
+  user_level?: number;
+  first_login?: number;
+  account_activation?: number;
 }
 
 export default defineComponent({
-    setup() {
-        const form = reactive<Form>({
-            username: '',
-            password: '',
-            password_confirm: '',
-            email: ''
-        })
+  components: {
+    'password-score': PasswordScore
+  },
 
-        const name = ref('Anna');
+  setup() {
+    const form = reactive<Form>({
+      username: '',
+      password: '',
+      password_confirm: '',
+      email: '',
+      user_level: 0,
+      first_login: 0,
+      account_activation: 0
+    })
 
-        function submit() {
-            console.log('submit');
-        }
+    const rules = {
+      username: { required }, 
+      password: { required, minLength: minLength(6) }, 
+      password_confirm: { required, sameAsPassword: sameAs('password') }, 
+      email: { required, email } 
+    }
 
-        return {
-            form,
-            name,
-            submit
-        }
-        
-    },
+    const v$ = useVuelidate(rules, form)
+
+    const password = ref("");
+    const isPasswordStrong = ref(false);
+
+    async function submit() {
+      await axios.post(`http://localhost:3001/register.php`, form)           
+    }
+
+    return {
+      form,
+      v$,
+      password,
+      isPasswordStrong,
+      submit
+    }
+      
+  },
 })
 </script>
