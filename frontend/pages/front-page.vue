@@ -1,6 +1,6 @@
  <template>
   <register-page v-if="true"/>
-  <menu-page v-else/>   
+  <menu-page v-else />
 </template>
 
 <script lang="ts">
