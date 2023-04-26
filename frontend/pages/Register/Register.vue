@@ -1,73 +1,47 @@
  <template>
     <section class="grid h-screen place-content-center bg-slate-900 text-slate-300">
-      <div class="mb-10 text-center text-orange-400">
-          <h1 class="text-3xl font-bold tracking-widest">SIGN UP</h1>
-
-          <span>Don't have an account yet? Sign up here!</span>
-
-      </div>
-      <form class="flex flex-col items-center justify-center space-y-6">
-        <input
-            v-model="form.username"
-            type="text" 
-            name="uid" 
-            placeholder="Username" 
-            class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500"
-        />
-
-        <span v-if="v$.username.$error"> {{ v$.username.$errors[0].$message }} </span>
-
-        <password-score
-          :value="form.password"
-          class="w-80 p-2 px-4"
-          @passed="isPasswordStrong = true"
-          @failed="isPasswordStrong = false"
-        />
-
-        <input 
-            v-model="form.password"
-            type="password" 
-            id="password" 
-            name="pwd" 
-            placeholder="Password" 
-            class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
-        />
-
-        <span v-if="v$.password.$error"> {{ v$.password.$errors[0].$message }} </span>
-
-        <input 
-            v-model="form.password_confirm"
-            type="password"
-            id="confirm_password" 
-            name="pwdrepeat" 
-            placeholder="Confirm Password" 
-            class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
-        />
-
-         <span v-if="v$.password_confirm.$error"> {{ v$.password_confirm.$errors[0].$message }} </span>
-
-        <input 
-            v-model="form.email"
-            type="email" 
-            id="email" 
-            name="email" 
-            placeholder="E-mail" 
-            class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
-        />
-
-        <span v-if="v$.email.$error"> {{ v$.email.$errors[0].$message }} </span>
-
-        <button 
-          type="submit" 
-          class="rounded-full bg-orange-500 p-2 px-4 text-white hover:bg-indigo-500"
-          :class="[
-            {
-              'cursor-not-allowed opacity-50 pointer-events-hover': !isPasswordStrong,
-            },
-          ]"
-          @click="submit"
-        >SIGN UP</button>
-      </form>
+        <div class="mb-10 text-center text-orange-400">
+            <h1 class="text-3xl font-bold tracking-widest">SIGN UP</h1>
+            <span>Don't have an account yet? Sign up here!</span>
+        </div>
+            <form action="../backend/includes/signup.inc.php" method="post" class="flex flex-col items-center justify-center space-y-6">
+                <input
+                    v-model="form.username"
+                    type="text" 
+                    name="uid" 
+                    placeholder="Username" 
+                    class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500"
+                />
+                <input 
+                    v-model="form.password"
+                    type="password" 
+                    id="password" 
+                    name="pwd" 
+                    placeholder="Password" 
+                    class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
+                />
+                <input 
+                    v-model="form.password_confirm"
+                    type="password" 
+                    id="confirm_password" 
+                    name="pwdrepeat" 
+                    placeholder="Confirm Password" 
+                    class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
+                />
+                <input 
+                    v-model="form.email"
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="E-mail" 
+                    class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
+                />
+                <button 
+                    type="submit" 
+                    class="rounded-full bg-orange-500 p-2 px-4 text-white hover:bg-indigo-500"
+                    @click="submit"
+                >SIGN UP</button>
+            </form>
     </section>
 </template>
 
