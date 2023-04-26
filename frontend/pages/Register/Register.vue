@@ -105,10 +105,10 @@ export default defineComponent({
     })
 
     const rules = {
-      username: { required }, 
-      password: { required, minLength: minLength(6) }, 
-      password_confirm: { required, sameAsPassword: sameAs('password') }, 
-      email: { required, email } 
+      username: helpers.withMessage('This is a required field', required) , 
+      password: helpers.withMessage('XXX', email) , 
+      password_confirm: helpers.withMessage('XXX', required), 
+      email: helpers.withMessage('Please enter a valid e-mail address', email) 
     }
 
     const v$ = useVuelidate(rules, form)

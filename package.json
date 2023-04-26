@@ -11,6 +11,7 @@
     "lint:fix": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore . --fix"
   },
   "dependencies": {
+    "@types/vuelidate": "^0.7.16",
     "@vuelidate/core": "^2.0.2",
     "@vuelidate/validators": "^2.0.2",
     "@zxcvbn-ts/core": "^2.2.1",

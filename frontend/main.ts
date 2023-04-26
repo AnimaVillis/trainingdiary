@@ -9,5 +9,5 @@ import { createApp } from "vue";
 const Vue = createApp(App);
 
 Vue.use(router);
-Vue.use(Vuelidate)
+Vue.use(Vuelidate as any)
 Vue.mount("#app");
