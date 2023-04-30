@@ -1,8 +1,6 @@
 {
-  "config": {
-      "vendor-dir": "./vendor/"
-  },
-  "require": {
-      "bcosca/fatfree-core": "^3.8.1"
-  }
+    "require": {
+        "firebase/php-jwt": "^6.4",
+        "paragonie/sodium_compat": "^1.19"
+    }
 }
