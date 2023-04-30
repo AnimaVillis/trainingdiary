@@ -1,0 +1,8 @@
+{
+  "config": {
+      "vendor-dir": "./vendor/"
+  },
+  "require": {
+      "bcosca/fatfree-core": "^3.8.1"
+  }
+}
