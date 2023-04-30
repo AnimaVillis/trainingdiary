@@ -68,7 +68,7 @@ services:
     volumes:
       - ./backend:/var/www/html
     working_dir: /var/www/html
-    entrypoint: ['composer', 'install']
+    command: composer update
     depends_on:
       - php
     networks:
