@@ -83,7 +83,6 @@ services:
     image: node:16
     user: "1000:1000"
     volumes:
-      - /var/www/html/node_modules
       - ./frontend:/var/www/html
     working_dir: /var/www/html
     command: npm run dev
