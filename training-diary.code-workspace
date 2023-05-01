@@ -37,8 +37,8 @@
               "request": "launch",
               "port": 9003,
               "pathMappings": {
-                  "/var/www/html": "${fileWorkspaceFolder}/backend"
-              }
+                  "/var/www/html/": "${fileWorkspaceFolder}"
+              },
           },
       ]
   }
