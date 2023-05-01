@@ -26,7 +26,10 @@
       "eamodio.gitlens",
       "bradlc.vscode-tailwindcss",
       "cpylua.language-postcss",
-      "xdebug.php-debug"
+      "xdebug.php-debug",
+      "devsense.composer-php-vscode",
+      "Vue.volar",
+      "Vue.vscode-typescript-vue-plugin"
     ]
   },
   "launch": {
