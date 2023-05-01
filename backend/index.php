@@ -15,7 +15,6 @@ $fw->route(["GET /", "GET /*"], function(\Base $fw) {
     if (strpos($fw->PATH, "/api/") === 0) {
         $fw->error(404);
     }
-    echo "hello";
 });
 
 $fw->run();

@@ -5,8 +5,8 @@ header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-require __DIR__.'/config/database.php';
-require __DIR__.'/class/JwtHandler.php';
+require '../config/database.php';
+require '../class/JwtHandler.php';
 
 function msg($success,$status,$message,$extra = []){
     return array_merge([
@@ -24,7 +24,7 @@ $returnData = [];
 
 if($_SERVER["REQUEST_METHOD"] != "POST"):
     $returnData = msg(0,404,'Page Not Found!');
-elseif(!isset($user->email) 
+elseif(!isset($user->email)
     || !isset($user->password)
     || empty(trim($user->email))
     || empty(trim($user->password))
@@ -45,7 +45,7 @@ else:
 
     else:
         try{
-            
+
             $fetch_user_by_email = "SELECT * FROM `users` WHERE `email`=:email";
             $stmt = $db->prepare($fetch_user_by_email);
             $stmt->bindValue(':email', $email,PDO::PARAM_STR);
@@ -62,7 +62,7 @@ else:
                         'http://localhost/',
                         array("user_id"=> $row['id'])
                     );
-                    
+
                     $returnData = [
                         'success' => 1,
                         'message' => 'You have successfully logged in.',
