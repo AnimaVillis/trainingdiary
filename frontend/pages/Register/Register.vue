@@ -47,8 +47,8 @@
 
 <script lang="ts">
 import axios from 'axios';
-import { useVuelidate } from '@vuelidate/core'
-import { required, email, minLength, sameAs, helpers } from '@vuelidate/validators'
+// import { useVuelidate } from '@vuelidate/core'
+// import { required, email, minLength, sameAs, helpers } from '@vuelidate/validators'
 import { defineComponent, reactive, ref, computed } from 'vue';
 import PasswordScore from './PasswordScore.vue';
 
@@ -78,14 +78,14 @@ export default defineComponent({
       account_activation: 0
     })
 
-    const rules = {
-      username: { required }, 
-      password: { required, minLength: minLength(6) }, 
-      password_confirm: { required, sameAsPassword: sameAs('password') }, 
-      email: { required, email } 
-    }
+    // const rules = {
+    //   username: { required }, 
+    //   password: { required, minLength: minLength(6) }, 
+    //   password_confirm: { required, sameAsPassword: sameAs('password') }, 
+    //   email: { required, email } 
+    // }
 
-    const v$ = useVuelidate(rules, form)
+    // const v$ = useVuelidate(rules, form)
 
     const password = ref("");
     const isPasswordStrong = ref(false);
@@ -96,7 +96,7 @@ export default defineComponent({
 
     return {
       form,
-      v$,
+      // v$,
       password,
       isPasswordStrong,
       submit

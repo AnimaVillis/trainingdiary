@@ -1,4 +1,4 @@
- <template>
+<template>
   <register-page v-if="true"/>
   <menu-page v-else />  
 </template>
@@ -10,10 +10,10 @@ import Menu from './Menu/Menu.vue'
 
 
 export default defineComponent({
-    components: {
-        'register-page': Register,
-        'menu-page': Menu
-    },
+  components: {
+      'register-page': Register,
+      'menu-page': Menu
+  },
 
     setup() {
         return {}
