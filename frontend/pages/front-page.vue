@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
+import { defineComponent } from 'vue'
 import Register from './Register/Register.vue'
 import Menu from './Menu/Menu.vue'
 

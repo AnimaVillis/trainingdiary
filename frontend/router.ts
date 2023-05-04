@@ -7,9 +7,9 @@ const router = createRouter({
     return { top: 0 };
   },
   routes: [
-    { 
+    {
       path: "/",
-      component: () => import("./pages/front-page.vue") 
+      component: () => import("./pages/front-page.vue"),
     },
 
     // Not found
