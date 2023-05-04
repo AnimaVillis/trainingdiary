@@ -1,5 +1,5 @@
 <template>
-  <div class="relative select-none">
+  <div class="relative select-none text-center">
     <p 
       class="absolute mt-1 text-sm"
       :class="description.color"
@@ -82,10 +82,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped>
-
-.mail-container {
-    margin-top: 25px;
-}
-</style>
