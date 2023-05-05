@@ -1,7 +1,7 @@
-import App from "./app.vue";
-import router from "./router";
+import App from "./src/app.vue";
+import router from "./src/router";
 import "./index.css";
-import "/utils/swipefix.js";
+import "./src/utils/swipefix";
 
 import { createApp } from "vue";
 
