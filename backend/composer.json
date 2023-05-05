@@ -1,6 +1,7 @@
 {
-    "require": {
-        "firebase/php-jwt": "^6.4",
-        "paragonie/sodium_compat": "^1.19"
-    }
+  "require": {
+    "bcosca/fatfree-core": "^3.8.1",
+    "firebase/php-jwt": "^6.4",
+    "paragonie/sodium_compat": "^1.19"
+  }
 }
