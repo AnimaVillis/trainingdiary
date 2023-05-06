@@ -1,6 +1,6 @@
 <?php
 
-date_default_timezone_set('America/Los_Angeles');
+date_default_timezone_set('Europe/Warsaw');
 
 require("/var/www/html/vendor/autoload.php");
 
@@ -15,7 +15,6 @@ $fw->route(["GET /", "GET /*"], function(\Base $fw) {
     if (strpos($fw->PATH, "/api/") === 0) {
         $fw->error(404);
     }
-    echo file_get_contents("/var/www/html/dist/index.html");
 });
 
 $fw->run();

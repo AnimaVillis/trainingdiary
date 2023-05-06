@@ -1,41 +1,40 @@
-FROM ghcr.io/premoweb/alpine-nginx-php8:latest AS base
+FROM php:8.1-fpm
 
-# Configure nginx
-COPY webserver/config/nginx.conf /etc/nginx/nginx.conf
+WORKDIR /var/www/html
 
-# Configure PHP-FPM
-COPY webserver/config/fpm-pool.conf /etc/php81/php-fpm.d/www.conf
-COPY webserver/config/php.ini /etc/php81/conf.d/custom.ini
+RUN docker-php-ext-install pdo pdo_mysql
 
-# Configure supervisord
-COPY webserver/config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+RUN apt-get update && apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug
 
-# Setup document root
-RUN mkdir -p /var/www/html
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN chown -R nobody.nobody /var/www/html && \
-  chown -R nobody.nobody /run && \
-  chown -R nobody.nobody /var/lib/nginx && \
-  chown -R nobody.nobody /var/log/nginx
+RUN chown -R www-data:www-data /var/www
 
-# Targeted using --target=build in Docker Compose
-FROM base AS development
+# Create a new user
+RUN adduser --disabled-password --gecos '' developer
 
-USER root
+# Add user to the group
+RUN chown -R developer:www-data /var/www
 
-COPY backend/ /var/www/html
-RUN chown -R nobody.nobody /var/www/html
+RUN chmod 755 /var/www
 
-ENV NODE_ENV development
+# Switch to this user
+USER developer
 
-USER nobody
+# Copy existing application directory contents
+COPY ./backend /var/www
 
-EXPOSE 80
+# Expose port 9000 and start php-fpm server
+EXPOSE 9000
+CMD ["php-fpm"]
 
-# Deployed in Caprover
-FROM development AS production
 
-USER root
-ADD frontend/dist/ /var/www/html/dist/
-RUN chown -R nobody.nobody /var/www/html
-USER nobody
+

@@ -1,0 +1,50 @@
+{
+  "folders": [
+    {
+      "name": "🌱 root",
+      "path": "."
+    },
+    {
+      "name": "📦 Backend",
+      "path": "./backend"
+    },
+    {
+      "name": "📦 Frontend",
+      "path": "./frontend"
+    }
+  ],
+  "settings": {
+    "typescript.tsdk": "./frontend/node_modules/typescript/lib",
+    "emmet.includeLanguages": {
+      "postcss": "css"
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "editorconfig.editorconfig",
+      "dbaeumer.vscode-eslint",
+      "eamodio.gitlens",
+      "bradlc.vscode-tailwindcss",
+      "cpylua.language-postcss",
+      "xdebug.php-debug",
+      "devsense.composer-php-vscode",
+      "Vue.volar",
+      "Vue.vscode-typescript-vue-plugin"
+    ]
+  },
+  "launch": {
+      "configurations": [
+          {
+              "name": "Listen for Xdebug",
+              "type": "php",
+              "request": "launch",
+              "port": 9003,
+              "pathMappings": {
+                  "/var/www/html/": "${fileWorkspaceFolder}"
+              },
+          },
+      ]
+  }
+
+
+}
