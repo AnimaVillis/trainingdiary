@@ -36,10 +36,9 @@ module.exports = {
       "ignorePattern": "as "
     }],
     "max-statements": ["warn", 30],
-    "endOfLine": 'off',
+    "endOfLine": 'on',
     "no-warning-comments": [1, { terms: ["todo", "fixme"] }],
     "no-console": "warn",
-    "no-param-reassign": ["warn", { "props": false }],
     "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0, "maxBOF": 0 }],
     "no-undef": "warn",
     "no-underscore-dangle": "warn",
