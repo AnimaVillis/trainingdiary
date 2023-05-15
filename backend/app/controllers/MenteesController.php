@@ -8,7 +8,6 @@ class MenteesController extends Controller
 
     public function index()
     {
-        //$mentees = db()->select('users')->all();
         $mentees = db()
             ->select("users
             LEFT JOIN users_info
