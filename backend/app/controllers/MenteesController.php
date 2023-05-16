@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controllers;
+use Leaf\Helpers\Password;
+
 
 
 class MenteesController extends Controller
@@ -38,5 +40,41 @@ class MenteesController extends Controller
         ]);
     }
 
+    public function addMentee()
+    {
 
+        $name = request()->get('name');
+        $email = request()->get('email');
+        $password = request()->get('password');
+
+        $hash = Password::hash($password, Password::DEFAULT);
+
+        if($name || $email || $password == NULL) {
+            response()->json([
+                "error" => 404,
+                "message" => "Cannot add new mentee, some fields isn't filled.",
+            ]);
+        }
+
+        $addmentee = db()
+            ->insert("users")
+            ->params([
+                "name" => $name,
+                "email" => $email,
+                "password" => $hash
+            ])
+            ->execute();
+
+        if ($addmentee === false) {
+            response()->json([
+                "error" => 404,
+                "message" => "Cannot add new mentee.",
+            ]);
+        } else {
+            response()->json([
+                "error" => 200,
+                "message" => "New mentee added sucessfull.",
+            ]);
+        }
+    }
 }
