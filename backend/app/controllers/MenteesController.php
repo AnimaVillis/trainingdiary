@@ -3,8 +3,6 @@
 namespace App\Controllers;
 use Leaf\Helpers\Password;
 
-
-
 class MenteesController extends Controller
 {
 
@@ -49,10 +47,10 @@ class MenteesController extends Controller
 
         $hash = Password::hash($password, Password::DEFAULT);
 
-        if($name || $email || $password == NULL) {
-            response()->json([
-                "error" => 404,
-                "message" => "Cannot add new mentee, some fields isn't filled.",
+        if(!$name || !$email || !$password) {
+            response()->exit([
+                'error' => '404',
+                'message' => "Some fields isn't filled.",
             ]);
         }
 
