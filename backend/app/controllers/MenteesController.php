@@ -50,7 +50,7 @@ class MenteesController extends Controller
         if(!$name || !$email || !$password) {
             response()->exit([
                 'error' => '404',
-                'message' => "Some fields isn't filled.",
+                'message' => "One of required fields isn't filled.",
             ]);
         }
 
