@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use Leaf\Helpers\Password;
 use App\Models\User;
+use Leaf\Helpers\Authentication;
 
 class MenteesController extends Controller
 {
@@ -41,8 +42,6 @@ class MenteesController extends Controller
 
     public function login()
     {
-
-
         $credentials = request()->get(['email', 'password']);
         $user = User::where('email', $credentials['email'])->first();
 
@@ -58,10 +57,21 @@ class MenteesController extends Controller
     public function menteeInfo()
     {
         auth()->useSession();
+
         if (auth()->status()) {
+            $id = auth()->id();
+
+            $menteeInfo = db()
+            ->select("users
+            LEFT JOIN users_info
+            ON users.id = users_info.users_id
+            WHERE id = ?")
+            ->hidden("password")
+            ->bind($id)
+            ->fetchAssoc();
+
             response()->json([
-                "error" => 200,
-                "message" => "User is logged in.",
+                "menteeinfo" => $menteeInfo,
             ]);
           } else {
             response()->json([
