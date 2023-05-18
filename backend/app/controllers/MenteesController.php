@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use Leaf\Helpers\Password;
+use App\Models\User;
 
 class MenteesController extends Controller
 {
@@ -36,6 +37,38 @@ class MenteesController extends Controller
         response()->json([
             "singlementee" => $singlementee,
         ]);
+    }
+
+    public function login()
+    {
+
+
+        $credentials = request()->get(['email', 'password']);
+        $user = User::where('email', $credentials['email'])->first();
+
+        $user = auth()->login($credentials);
+
+        if (!$user) {
+            response()->exit(auth()->errors());
+        }
+
+        response()->json($user);
+    }
+
+    public function menteeInfo()
+    {
+        auth()->useSession();
+        if (auth()->status()) {
+            response()->json([
+                "error" => 200,
+                "message" => "User is logged in.",
+            ]);
+          } else {
+            response()->json([
+                "error" => 404,
+                "message" => "User isn't logged in.",
+            ]);
+          }
     }
 
     public function addMentee()
