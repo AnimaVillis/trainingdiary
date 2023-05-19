@@ -4,6 +4,8 @@ namespace App\Controllers;
 use Leaf\Helpers\Password;
 use App\Models\User;
 use Leaf\Helpers\Authentication;
+auth()->config('USE_SESSION', true);
+
 
 class MenteesController extends Controller
 {
@@ -42,7 +44,15 @@ class MenteesController extends Controller
 
     public function login()
     {
+
         $credentials = request()->get(['email', 'password']);
+
+        if(!$credentials['email'] || !$credentials['password']) {
+            response()->exit([
+                'error' => '404',
+                'message' => "One of required fields isn't filled.",
+            ]);
+        }
         $user = User::where('email', $credentials['email'])->first();
 
         $user = auth()->login($credentials);
@@ -50,7 +60,6 @@ class MenteesController extends Controller
         if (!$user) {
             response()->exit(auth()->errors());
         }
-
         response()->json($user);
     }
 
