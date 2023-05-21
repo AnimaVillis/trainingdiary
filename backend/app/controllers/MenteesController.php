@@ -4,7 +4,7 @@ namespace App\Controllers;
 use Leaf\Helpers\Password;
 use App\Models\User;
 use Leaf\Helpers\Authentication;
-auth()->config('USE_SESSION', true);
+
 
 
 class MenteesController extends Controller
@@ -60,14 +60,13 @@ class MenteesController extends Controller
         if (!$user) {
             response()->exit(auth()->errors());
         }
+
         response()->json($user);
     }
 
     public function menteeInfo()
     {
-        auth()->useSession();
-
-        if (auth()->status()) {
+        if (auth()->user()) {
             $id = auth()->id();
 
             $menteeInfo = db()
@@ -124,6 +123,52 @@ class MenteesController extends Controller
             response()->json([
                 "error" => 200,
                 "message" => "New mentee added sucessfull.",
+            ]);
+        }
+    }
+
+    public function firstLogin()
+    {
+
+        $users_id = auth()->id();
+        $initial_weight = request()->get('initial_weight');
+        $current_weight = request()->get('current_weight');
+        $target_weight = request()->get('target_weight');
+        $growth = request()->get('growth');
+        $age = request()->get('age');
+        $activity_factor = request()->get('activity_factor');
+        $sex = request()->get('sex');
+
+        if(!$initial_weight || !$current_weight || !$target_weight || !$growth || !$age || !$activity_factor || !$sex) {
+            response()->exit([
+                'error' => '404',
+                'message' => "One of required fields isn't filled.",
+            ]);
+        }
+
+        $firstLogin = db()
+            ->insert("users_info")
+            ->params([
+                "users_id" => $id,
+                "initial_weight" => $initial_weight,
+                "current_weight" => $current_weight,
+                "target_weight" => $target_weight,
+                "growth" => $growth,
+                "age" => $age,
+                "activity_factor" => $activity_factor,
+                "sex" => $sex
+            ])
+            ->execute();
+
+        if ($firstLogin === false) {
+            response()->json([
+                "error" => 404,
+                "message" => "Cannot insert yours first login data.",
+            ]);
+        } else {
+            response()->json([
+                "error" => 200,
+                "message" => "Your's first login data successfully inserted into database.",
             ]);
         }
     }
