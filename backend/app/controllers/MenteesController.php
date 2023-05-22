@@ -89,6 +89,32 @@ class MenteesController extends Controller
           }
     }
 
+    public function weightUpdate()
+    {
+        if (auth()->user()) {
+            $id = auth()->id();
+
+            $old_weight = db()->select("users
+            LEFT JOIN users_info
+            ON users.id = users_info.users_id
+            LEFT JOIN users_weights
+            ON users.id = users_weights.users_id
+            WHERE users.id = ?")
+            ->hidden("password")
+            ->bind($id)
+            ->fetchAssoc();
+
+            response()->json([
+                "weightUpdate" => $old_weight,
+            ]);
+          } else {
+            response()->json([
+                "error" => 404,
+                "message" => "User isn't logged in.",
+            ]);
+          }
+    }
+
     public function addMentee()
     {
 
