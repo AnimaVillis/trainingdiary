@@ -96,6 +96,13 @@ class MenteesController extends Controller
 
             $new_weight = request()->get('new_weight');
 
+            if(!$new_weight) {
+                response()->exit([
+                    "error" => 404,
+                    "message" => "Empty fields",
+                ]);
+            }
+
             $weight_update = db()
             ->update("users_info")
             ->params(["current_weight" => $new_weight])
