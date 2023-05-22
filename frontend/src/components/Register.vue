@@ -1,50 +1,55 @@
- <template>
-    <section class="grid h-screen place-content-center bg-slate-900 text-slate-300">
-        <div class="mb-10 text-center text-orange-400">
+<template>
+  <section class="grid h-screen place-content-center bg-slate-900 text-slate-300">
+      <div class="mb-10 text-center text-orange-400">
           <h1 class="text-3xl font-bold tracking-widest">SIGN UP</h1>
           <span>Don't have an account yet? Sign up here!</span>
-        </div>
+      </div>
           <form class="flex flex-col items-center justify-center space-y-6">
-            <input
-              v-model="form.username"
-              type="text" 
-              name="uid" 
-              placeholder="Username" 
-              class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500"
-            />
-            <password-score />
-            <input 
-              v-model="form.password"
-              type="password" 
-              id="password" 
-              name="pwd" 
-              placeholder="Password" 
-              class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
-            />
-            <input 
-              v-model="form.password_confirm"
-              type="password" 
-              id="confirm_password" 
-              name="pwdrepeat" 
-              placeholder="Confirm Password" 
-              class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
-            />
-            <input 
-              v-model="form.email"
-              type="email" 
-              id="email" 
-              name="email" 
-              placeholder="E-mail" 
-              class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
-            />
+              <input
+                  v-model="form.username"
+                  type="text" 
+                  name="uid" 
+                  placeholder="Username" 
+                  class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500"
+              />
+              <password-score 
+                :value="form.password"
+                class="w-80 p-2 px-4"
+                @passed="checkPassword(true)"
+                @failed="checkPassword(false)"
+              />
+              <input 
+                  v-model="form.password"
+                  type="password" 
+                  id="password" 
+                  name="pwd" 
+                  placeholder="Password" 
+                  class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
+              />
+              <input 
+                  v-model="form.password_confirm"
+                  type="password" 
+                  id="confirm_password" 
+                  name="pwdrepeat" 
+                  placeholder="Confirm Password" 
+                  class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
+              />
+              <input 
+                  v-model="form.email"
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  placeholder="E-mail" 
+                  class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
+              />
+              <button 
+                  type="button" 
+                  class="rounded-full bg-orange-500 p-2 px-4 text-white hover:bg-indigo-500"
+                  @click="submit"
+              >SIGN UP</button>
           </form>
-          <button 
-            type="submit" 
-            class="rounded-full bg-orange-500 p-2 px-4 text-white hover:bg-indigo-500"
-            @click="submit"
-          >SIGN UP</button>
-    </section>
-<template/>
+  </section>
+</template>
 
 <script lang="ts">
 import axios from 'axios';
@@ -89,11 +94,16 @@ export default defineComponent({
 
     const v$ = useVuelidate(rules, form)
 
-    const password = ref("");
     const isPasswordStrong = ref(false);
 
+    function checkPassword(value) {
+      isPasswordStrong.value = value;
+    }
+
+    const password = ref("");
+
     async function submit() {
-      await axios.post(`http://localhost:3001/api/add_mentee.php`, form)
+      await axios.post(`http://localhost:3001/mentees/add`, form)
         .then((response) => {
           console.log(response);
         })         
@@ -103,7 +113,7 @@ export default defineComponent({
       form,
       v$,
       password,
-      isPasswordStrong,
+      checkPassword,
       submit
     }
       

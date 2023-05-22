@@ -1,5 +1,5 @@
 <template>
-  <div class="relative select-none text-center">
+  <div class="relative select-none text-center w-full">
     <p 
       class="absolute mt-1 text-sm"
       :class="description.color"
