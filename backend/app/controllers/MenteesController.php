@@ -94,19 +94,34 @@ class MenteesController extends Controller
         if (auth()->user()) {
             $id = auth()->id();
 
-            $old_weight = db()->select("users
-            LEFT JOIN users_info
-            ON users.id = users_info.users_id
-            LEFT JOIN users_weights
-            ON users.id = users_weights.users_id
-            WHERE users.id = ?")
-            ->hidden("password")
-            ->bind($id)
-            ->fetchAssoc();
+            $new_weight = request()->get('new_weight');
 
-            response()->json([
-                "weightUpdate" => $old_weight,
-            ]);
+            $weight_update = db()
+            ->update("users_info")
+            ->params(["current_weight" => $new_weight])
+            ->where("users_id", $id)
+            ->execute();
+
+            $weight_update_log = db()
+            ->insert("users_weights")
+            ->params([
+              "users_id" => $id,
+              "new_weight" => $new_weight
+            ])
+            ->execute();
+
+            if($weight_update && $weight_update_log) {
+                response()->json([
+                    "error" => 200,
+                    "newWeight" => $new_weight,
+                    "message" => "Weight update successfully.",
+                ]);
+            } else {
+                response()->json([
+                    "error" => 404,
+                    "message" => "Weight can't be updated.",
+                ]);
+            }
           } else {
             response()->json([
                 "error" => 404,
