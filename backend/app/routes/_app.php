@@ -1,6 +1,8 @@
 <?php
+app()->cors();
+
 app()->get('/', function () {
-    response()->json(['message' => 'Leaf is amazing!']);
+    response()->json(['message' => 'Leaf API is working!']);
   });
 
 app()->get("/app", function () {
