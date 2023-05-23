@@ -1,22 +1,24 @@
 <?php
 
-date_default_timezone_set('Europe/Warsaw');
+/**
+ * Leaf API - A minimal but powerful MVC API framework
+ *
+ * @package  Leaf API
+ * @author   Michael Darko <mychi.darko@gmail.com>
+ */
 
-require("/var/www/html/vendor/autoload.php");
+$uri = urldecode(
+    parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+);
 
-$fw = \Base::instance();
-$fw->config("/var/www/html/config.ini");
+// This file allows us to run the app from the root of the project.
+// This provides a convenient way to test your Leaf MVC app
+// without having installed a "real" web server software here.
 
-$fw->set("ONREROUTE", function($route){
-    return $route . '/';
-});
+// It also allows you to directly load up your application from
+// the root file for quickly hosting on shared hosting platforms.
+if ($uri !== '/' && file_exists(__DIR__ . '/public' . $uri)) {
+    return false;
+}
 
-$fw->route(["GET /", "GET /*"], function(\Base $fw) {
-    if (strpos($fw->PATH, "/api/") === 0) {
-        $fw->error(404);
-    }
-});
-
-$fw->run();
-
-?>
+require_once __DIR__ . '/public/index.php';
