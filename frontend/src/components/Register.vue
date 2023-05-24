@@ -6,44 +6,44 @@
       </div>
           <form class="flex flex-col items-center justify-center space-y-6">
               <input
-                  v-model="form.username"
-                  type="text" 
-                  name="uid" 
-                  placeholder="Username" 
+                  v-model="form.name"
+                  type="text"
+                  name="uid"
+                  placeholder="Username"
                   class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500"
               />
-              <password-score 
+              <password-score
                 :value="form.password"
                 class="w-80 p-2 px-4"
                 @passed="checkPassword(true)"
                 @failed="checkPassword(false)"
               />
-              <input 
+              <input
                   v-model="form.password"
-                  type="password" 
-                  id="password" 
-                  name="pwd" 
-                  placeholder="Password" 
-                  class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
+                  type="password"
+                  id="password"
+                  name="pwd"
+                  placeholder="Password"
+                  class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500"
               />
-              <input 
+              <input
                   v-model="form.password_confirm"
-                  type="password" 
-                  id="confirm_password" 
-                  name="pwdrepeat" 
-                  placeholder="Confirm Password" 
-                  class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
+                  type="password"
+                  id="confirm_password"
+                  name="pwdrepeat"
+                  placeholder="Confirm Password"
+                  class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500"
               />
-              <input 
+              <input
                   v-model="form.email"
-                  type="email" 
-                  id="email" 
-                  name="email" 
-                  placeholder="E-mail" 
-                  class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500" 
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="E-mail"
+                  class="w-80 appearance-none rounded-full border-0 bg-slate-800/50 p-2 px-4 focus:bg-slate-800 focus:ring-2 focus:ring-orange-500"
               />
-              <button 
-                  type="button" 
+              <button
+                  type="button"
                   class="rounded-full bg-orange-500 p-2 px-4 text-white hover:bg-indigo-500"
                   @click="submit"
               >SIGN UP</button>
@@ -59,13 +59,10 @@ import { defineComponent, reactive, ref, computed } from 'vue';
 import PasswordScore from './PasswordScore.vue';
 
 interface Form {
-  username: string;
+  name: string;
   password: string;
   password_confirm: string;
   email: string;
-  user_level?: number;
-  first_login?: number;
-  account_activation?: number;
 }
 
 export default defineComponent({
@@ -76,20 +73,17 @@ export default defineComponent({
   setup() {
     useVuelidate()
     const form = reactive<Form>({
-      username: '',
+      name: '',
       password: '',
       password_confirm: '',
-      email: '',
-      user_level: 0,
-      first_login: 0,
-      account_activation: 0
+      email: ''
     })
 
     const rules = {
-      username: { required }, 
-      password: { required, minLength: minLength(6) }, 
-      password_confirm: { required, sameAsPassword: sameAs('password') }, 
-      email: { required, email } 
+      name: { required },
+      password: { required, minLength: minLength(6) },
+      password_confirm: { required, sameAsPassword: sameAs('password') },
+      email: { required, email }
     }
 
     const v$ = useVuelidate(rules, form)
@@ -106,7 +100,7 @@ export default defineComponent({
       await axios.post(`http://localhost:3001/mentees/add`, form)
         .then((response) => {
           console.log(response);
-        })         
+        })
     }
 
     return {
@@ -116,7 +110,7 @@ export default defineComponent({
       checkPassword,
       submit
     }
-      
+
   },
 })
 </script>
