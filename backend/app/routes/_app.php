@@ -17,3 +17,4 @@ app()->post('/mentees/login', 'MenteesController@login');
 app()->post('/mentees/weightupdate', 'MenteesController@weightUpdate');
 app()->post('/mentees/firstLogin', 'MenteesController@firstlogin');
 app()->get('/mentees/info', 'MenteesController@menteeInfo');
+app()->get('/mentees/activate', 'MenteesController@activateMentee');

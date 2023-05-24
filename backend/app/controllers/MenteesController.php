@@ -220,4 +220,21 @@ class MenteesController extends Controller
             ]);
         }
     }
+
+    public function activateMentee()
+    {
+        $mail = new Leaf\Mail;
+        if (!$mail->basic("Subject", "Body", "pwawrzen@gmail.com", "sender name")) {
+            $mail->errors();
+          } else {
+            $mail->send();
+          }
+//         $email->write([
+//   "subject" => "This is a full Write Test",
+//   "template" => "./template.html",
+//   "recepient_email" => "mychi@leafphp.dev",
+//   "sender_name" => "Leaf PHP Framework",
+//   "attachment" => "./../attachment.txt"
+// ]);
+    }
 }
