@@ -145,6 +145,7 @@ class MenteesController extends Controller
         $password = request()->get('password');
 
         $hash = Password::hash($password, Password::DEFAULT);
+        $activation_hash_generated = Password::hash($email, Password::DEFAULT);
 
         if(!$name || !$email || !$password) {
             response()->exit([
@@ -158,7 +159,8 @@ class MenteesController extends Controller
             ->params([
                 "name" => $name,
                 "email" => $email,
-                "password" => $hash
+                "password" => $hash,
+                "activation_hash" => $activation_hash_generated
             ])
             ->execute();
 
@@ -223,18 +225,56 @@ class MenteesController extends Controller
 
     public function activateMentee()
     {
-        $mail = new Leaf\Mail;
-        if (!$mail->basic("Subject", "Body", "pwawrzen@gmail.com", "sender name")) {
-            $mail->errors();
+        if (auth()->user()) {
+            $id = auth()->id();
+
+            $menteeActivation = db()
+            ->select("users WHERE id = ?")
+            ->hidden(["password"], ["user_level"], ["first_login"])
+            ->bind($id)
+            ->fetchAssoc();
+
+            $name = $menteeActivation['name'];
+            $email = $menteeActivation['email'];
+            $activation_hash = $menteeActivation['activation_hash'];
+            $link = "http://localhost:3001/mentees/activate/$activation_hash";
+
+            if($menteeActivation['account_activation'] == 0){
+                $mail = new \Leaf\Mail;
+                $mail->smtp_connect('smtp.gmail.com', 587, true, 'tailwindcssforum@gmail.com', 'yeuashogkaycesoo', 'STARTTLS');
+                $mail->isHTML(true);
+
+                $email = $mail->write([
+                    "subject" => "Hi $name! Here's you'r activation code!",
+                    "sender_name" => "Training Diary - Activation Url",
+                    "body" => "Hello <b>$name</b>!<br>
+                    I would like to send You an activation link!<br>
+                    <br>
+                    $link<br>
+                    <br>
+                    Hope this simple app will be usefull for You!<br>
+                    Best regards,
+                    <b>Training Diary</b> Development Team!",
+                    "sender_email" => "trainingdiary@test.com",
+                    "recepient_email" => $email
+                ]);
+
+                if (!$email) {
+                    app()->response()->exit($mail->errors());
+                }
+
+                $email->send();
+
+                response()->json([
+                    "error" => 200,
+                    "message" => "Activation link, was sended.",
+                ]);
+            }
           } else {
-            $mail->send();
+            response()->json([
+                "error" => 404,
+                "message" => "User isn't logged in.",
+            ]);
           }
-//         $email->write([
-//   "subject" => "This is a full Write Test",
-//   "template" => "./template.html",
-//   "recepient_email" => "mychi@leafphp.dev",
-//   "sender_name" => "Leaf PHP Framework",
-//   "attachment" => "./../attachment.txt"
-// ]);
     }
 }
