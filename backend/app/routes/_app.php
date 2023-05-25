@@ -17,4 +17,3 @@ app()->post('/mentees/login', 'MenteesController@login');
 app()->post('/mentees/weightupdate', 'MenteesController@weightUpdate');
 app()->post('/mentees/firstLogin', 'MenteesController@firstlogin');
 app()->get('/mentees/info', 'MenteesController@menteeInfo');
-app()->match('GET|POST', '/mentees/activate/[^/]+', 'MenteesController@activateMentee');
