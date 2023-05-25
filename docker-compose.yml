@@ -31,6 +31,12 @@ services:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USE: ${SMTP_USE}
+      SMTP_SSL: ${SMTP_SSL}
+      SMTP_LOGIN: ${SMTP_LOGIN}
+      SMTP_PASS: ${SMTP_PASS}
       XDEBUG_MODE: develop,debug
       XDEBUG_CONFIG:
         client_host=host.docker.internal

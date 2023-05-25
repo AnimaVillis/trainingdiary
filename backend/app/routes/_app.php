@@ -12,8 +12,8 @@ app()->get("/app", function () {
 
 app()->get("/mentees", "MenteesController@index");
 app()->get('/mentees/(\d+)', 'MenteesController@singleMentee');
+app()->get('/mentees/info', 'MenteesController@menteeInfo');
 app()->post('/mentees/add', 'MenteesController@addMentee');
 app()->post('/mentees/login', 'MenteesController@login');
 app()->post('/mentees/weightupdate', 'MenteesController@weightUpdate');
 app()->post('/mentees/firstLogin', 'MenteesController@firstlogin');
-app()->get('/mentees/info', 'MenteesController@menteeInfo');
