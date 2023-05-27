@@ -49,7 +49,7 @@ class MenteesController extends Controller
 
         if(!$credentials['email'] || !$credentials['password']) {
             response()->exit([
-                'error' => '404',
+                'error' => 400,
                 'message' => "One of required fields isn't filled.",
             ]);
         }
@@ -83,7 +83,7 @@ class MenteesController extends Controller
             ]);
           } else {
             response()->json([
-                "error" => 404,
+                "error" => 401,
                 "message" => "User isn't logged in.",
             ]);
           }
@@ -120,18 +120,17 @@ class MenteesController extends Controller
             if($weight_update && $weight_update_log) {
                 response()->json([
                     "error" => 200,
-                    "newWeight" => $new_weight,
                     "message" => "Weight update successfully.",
                 ]);
             } else {
                 response()->json([
-                    "error" => 404,
+                    "error" => 500,
                     "message" => "Weight can't be updated.",
                 ]);
             }
           } else {
             response()->json([
-                "error" => 404,
+                "error" => 401,
                 "message" => "User isn't logged in.",
             ]);
           }
@@ -166,7 +165,7 @@ class MenteesController extends Controller
 
         if ($addmentee === false) {
             response()->json([
-                "error" => 404,
+                "error" => 401,
                 "message" => "Cannot add new mentee.",
             ]);
         } else {
@@ -195,6 +194,7 @@ class MenteesController extends Controller
                 'message' => "One of required fields isn't filled.",
             ]);
         }
+
 
         $firstLogin = db()
             ->insert("users_info")
