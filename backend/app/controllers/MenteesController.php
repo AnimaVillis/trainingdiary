@@ -180,32 +180,32 @@ class MenteesController extends Controller
     {
 
         $users_id = auth()->id();
-        $initial_weight = request()->get('initial_weight');
-        $current_weight = request()->get('current_weight');
-        $target_weight = request()->get('target_weight');
-        $growth = request()->get('growth');
-        $age = request()->get('age');
-        $activity_factor = request()->get('activity_factor');
-        $sex = request()->get('sex');
+        $data = form()->body();
+        $validation = form()->validate([
+            "initial_weight" => ["required", "number", "max:3"],
+            "current_weight" => ["required", "number", "max:3"],
+            "target_weight" => ["required", "number", "max:3"],
+            "growth" => ["required", "number", "max:3"],
+            "age" => ["required", "number", "max:2"],
+            "activity_factor" => ["required", "max:3"],
+            "sex" => ["required", "textOnly", "max:6"]
+        ]);
 
-        if(!$initial_weight || !$current_weight || !$target_weight || !$growth || !$age || !$activity_factor || !$sex) {
-            response()->exit([
-                'error' => 400,
-                'message' => "One of required fields isn't filled.",
-            ]);
+        if (!$validation) {
+            response()->exit(form()->errors());
         }
 
         $firstLogin = db()
             ->insert("users_info")
             ->params([
                 "users_id" => $id,
-                "initial_weight" => $initial_weight,
-                "current_weight" => $current_weight,
-                "target_weight" => $target_weight,
-                "growth" => $growth,
-                "age" => $age,
-                "activity_factor" => $activity_factor,
-                "sex" => $sex
+                "initial_weight" => $data['initial_weight'],
+                "current_weight" => $data['current_weight'],
+                "target_weight" => $data['target_weight'],
+                "growth" => $data['growth'],
+                "age" => $data['age'],
+                "activity_factor" => $data['activity_factor'],
+                "sex" => $data['sex']
             ])
             ->execute();
 
