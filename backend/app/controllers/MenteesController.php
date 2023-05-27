@@ -190,11 +190,10 @@ class MenteesController extends Controller
 
         if(!$initial_weight || !$current_weight || !$target_weight || !$growth || !$age || !$activity_factor || !$sex) {
             response()->exit([
-                'error' => '404',
+                'error' => 400,
                 'message' => "One of required fields isn't filled.",
             ]);
         }
-
 
         $firstLogin = db()
             ->insert("users_info")
@@ -212,7 +211,7 @@ class MenteesController extends Controller
 
         if ($firstLogin === false) {
             response()->json([
-                "error" => 404,
+                "error" => 500,
                 "message" => "Cannot insert yours first login data.",
             ]);
         } else {
