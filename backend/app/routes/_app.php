@@ -1,6 +1,8 @@
 <?php
+app()->cors();
+
 app()->get('/', function () {
-    response()->json(['message' => 'Leaf is amazing!']);
+    response()->json(['message' => 'Leaf API is working!']);
   });
 
 app()->get("/app", function () {
@@ -10,5 +12,8 @@ app()->get("/app", function () {
 
 app()->get("/mentees", "MenteesController@index");
 app()->get('/mentees/(\d+)', 'MenteesController@singleMentee');
+app()->get('/mentees/info', 'MenteesController@menteeInfo');
 app()->post('/mentees/add', 'MenteesController@addMentee');
-
+app()->post('/mentees/login', 'MenteesController@login');
+app()->post('/mentees/weightupdate', 'MenteesController@weightUpdate');
+app()->post('/mentees/firstLogin', 'MenteesController@firstlogin');

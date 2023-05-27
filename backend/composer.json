@@ -29,7 +29,8 @@
         "leafs/cors": "*",
         "leafs/auth": "*",
         "leafs/db": "*",
-        "leafs/form": "^1.2"
+        "leafs/form": "^1.2",
+        "leafs/mail": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.16"
