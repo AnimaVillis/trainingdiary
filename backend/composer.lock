@@ -1293,16 +1293,16 @@
         },
         {
             "name": "leafs/auth",
-            "version": "v2.2.1",
+            "version": "v2.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/leafsphp/auth.git",
-                "reference": "f293438d201559b8cba1505d151635803be9bd76"
+                "reference": "0f3cbd74cf1a4d851321909635aa224a4716438a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafsphp/auth/zipball/f293438d201559b8cba1505d151635803be9bd76",
-                "reference": "f293438d201559b8cba1505d151635803be9bd76",
+                "url": "https://api.github.com/repos/leafsphp/auth/zipball/0f3cbd74cf1a4d851321909635aa224a4716438a",
+                "reference": "0f3cbd74cf1a4d851321909635aa224a4716438a",
                 "shasum": ""
             },
             "require": {
@@ -1350,7 +1350,7 @@
             ],
             "support": {
                 "issues": "https://github.com/leafsphp/auth/issues",
-                "source": "https://github.com/leafsphp/auth/tree/v2.2.1"
+                "source": "https://github.com/leafsphp/auth/tree/v2.2.2"
             },
             "funding": [
                 {
@@ -1362,7 +1362,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2023-04-02T19:35:14+00:00"
+            "time": "2023-05-21T15:16:48+00:00"
         },
         {
             "name": "leafs/blade",
