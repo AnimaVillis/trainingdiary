@@ -139,25 +139,25 @@ class MenteesController extends Controller
     public function addMentee()
     {
 
-        $name = request()->get('name');
-        $email = request()->get('email');
-        $password = request()->get('password');
+        $data = form()->body();
+        $validation = form()->validate([
+            "name" => ["required", "textOnly"],
+            "email" => ["required", "email"],
+            "password" => ["required", "noSpaces"]
+        ]);
 
-        $hash = Password::hash($password, Password::DEFAULT);
-        $activation_hash_generated = Password::hash($email, Password::DEFAULT);
-
-        if(!$name || !$email || !$password) {
-            response()->exit([
-                'error' => '404',
-                'message' => "One of required fields isn't filled.",
-            ]);
+         if (!$validation) {
+            response()->exit(form()->errors());
         }
+
+        $hash = Password::hash($data['password'], Password::DEFAULT);
+        $activation_hash_generated = Password::hash($data['email'], Password::DEFAULT);
 
         $addmentee = db()
             ->insert("users")
             ->params([
-                "name" => $name,
-                "email" => $email,
+                "name" => $data['name'],
+                "email" => $data['email'],
                 "password" => $hash,
                 "activation_hash" => $activation_hash_generated
             ])
